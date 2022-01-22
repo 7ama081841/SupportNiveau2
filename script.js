@@ -1,204 +1,63 @@
-/* const list = document.getElementById('list');
-const list_elemine =
-  document.getElementById('list_elemine');
-
-let a = [
-  { name: 'ahmed', age: 2, elemine: false },
-  { name: 'farou9', age: 3, elemine: false },
-  { name: 'fadhila', age: 6, elemine: true },
+let list = [
+  { id: "1", name: "ahmed", status: "vacc" },
+  { id: "2", name: "ahmed2", status: "enreg" },
+  { id: "3", name: "ahmed3", status: "enreg" },
 ];
-
+const list_vacc = document.getElementById("list_vacc");
+const list_saved = document.getElementById("list_saved");
 const abbi = () =>
 {
-  list.innerHTML = '';
-  list_elemine.innerHTML = '';
-  a.map((e) =>
+  list_saved.innerHTML = '';
+  list_vacc.innerHTML = '';
+  list.forEach(({ name, status, id }) =>
   {
-    if (e.elemine === true) {
-      const weldElimine = `<li>esm : ${ e.name } <button style="background-color:red" onclick="supprimer('${ e.name }')" >X</button> </li>`;
-      list_elemine.innerHTML += weldElimine;
+    if (status === "enreg") {
+      const li = ` <li>
+      <div style='display:flex' >
+      <p>${ name }</p>
+      <button onclick="vaccinPerson('${ id }')" >vaccine</button>
+      </div></li> `
+      list_saved.innerHTML += li;
+
     } else {
-      const weld = `<li>esm : ${ e.name } <button onclick="elimine('${ e.name }')" >X</button> </li>`;
-      list.innerHTML += weld;
-    }
-  });
-};
-function elimine(name)
-{
-  a.map((e) =>
-  {
-    if (e.name === name) {
-      e.elemine = true;
-    }
-  });
-  abbi();
-}
+      const li = ` <li>
+      <div style='display:flex' >
+      <p>${ name }</p>
+      <button onclick="supprime('${ id }')" >supprimer</button>
+      </div></li> `
+      list_vacc.innerHTML += li;
 
-function supprimer(name)
-{
-  a = a.filter((e) =>
-  {
-    return e?.name !== name;
-  });
-  abbi();
-}
-function add()
-{
-  const esm = document.getElementById('name').value;
-  const newCandidate = {
-    name: esm,
-    elemine: false,
-  };
-  a.push(newCandidate);
-  abbi();
-}
- */
-
-/* const changeSelect = (event) =>
-
-
-{
-
-  console.log(event.target.value);
-}
-
-
-const m = document.getElementById('demoo');
-const clickme = (event) =>
-{
-  const valeur = document.querySelector('#clickmetext');
-  m.innerText = valeur.value
-}
-
-
-const clearinput = () =>
-{
-  m.innerText = ''
-}
-
-
-const ul = document.querySelector('#list');
-const hetsubmit = (event) =>
-{
-  event.preventDefault()
-  const username = document.querySelector('#username');
-  const password = document.querySelector('#password');
-
-  const ELEMENT_JDID = `
-  <li> 
-  
-    <div style="display:flex"> 
-    <p> ${ username.value } </p>
-    <p> ${ password.value } </p>
-    </div> 
-  
-  </li>`
-
-  ul.innerHTML += ELEMENT_JDID;
-
-  username.value = ''
-  password.value = ''
-
-
-}
-
-
-
-
-
-
-
-
-let imagesList = document.querySelector('#images');
-const changeFileeeeeee = (event) =>
-{
-  const photos = event.target.files;
-  [...photos].map(image =>
-  {
-    const url = window.URL.createObjectURL(image);
-    imagesList.innerHTML += `  <img width='100' src='${ url }' />  `
-
-  })
-}
-
-
-const handleFile = (event) =>
-{
-  const imageHolder = document.getElementById('image')
-  const file = event.target.files[0];
-  var reader = new FileReader();
-  reader.onloadend = () => imageHolder.src = reader.result;
-  if (file) {
-    reader.readAsDataURL(file);
-  } else {
-    imageHolder.src = "";
-  }
-}
-
-// event.preventDefault();
-
-const span = document.querySelector('#addedtext');
-const onChange = (event) =>
-{
-  const valeur = event.target.value;
-  span.innerText = valeur.toUpperCase();
-
-}
-
-const list = document.querySelector('#list');
-const clickajouter = () =>
-{
-  const valeur = document.querySelector('#text');
-  const li = `<li> ${ valeur.value } </li>`;
-  const li = "<li>" + valeur.value + "</li>"
-  list.innerHTML += li;
-} */
-
-
-const list = [
-  { id: "1", name: "ahmed", status: "vaccine" },
-  { id: "2", name: "ahmed", status: "enregistre" },
-  { id: "3", name: "ahmed", status: "vaccine" },
-];
-const abbi = () =>
-{
-  const listLoula = document.getElementById('list_vacc');
-  const listthneya = document.getElementById('list_saved');
-  listLoula.innerHTML = '';
-  listthneya.innerHTML = '';
-  list.forEach(personn =>
-  {
-    if (personn.status === "vaccine") {
-      listLoula.innerHTML += `<li> 
-      <div style="display:flex" >
-      <p>${ personn.name }</p>
-      <button onclick='supprimer("${ personn.id }")' >supprimer</button>
-      </div> </li>`
-    } else {
-      listthneya.innerHTML += `<li> 
-      <div style="display:flex" >
-      <p>${ personn.name }</p>
-      <button onclick='vacciner("${ personn.id }")' >effacer</button>
-      </div> </li>`
     }
   })
 }
-
-const vacciner = (id) =>
-{
-  list.forEach(person =>
-  {
-    if (person.id === id) {
-      person.status = "vaccine"
-    }
-  });
-  abbi();
-}
-
+const valueText = document.getElementById('text');
 const ajout = () =>
 {
-  const esmJdid = document.getElementById('text').value;
-  list.push({ id: list.length + 1, name: esmJdid, status: "enregistre" });
+  const personName = valueText.value;
+  const generatedID = Date.now();
+  const newPersonn = {
+    name: personName,
+    id: generatedID,
+    status: 'enreg'
+  }
+  list.push(newPersonn);
+  abbi()
+};
+
+const vaccinPerson = (idPerson) =>
+{
+  console.log({ idPerson });
+  list.forEach(element =>
+  {
+    if (element.id == idPerson) {
+      element.status = "vacc"
+    }
+  })
+  abbi()
+};
+
+const supprime = (idd) =>
+{
+  list = list.filter(({ id }) => !(id == idd));
   abbi()
 }
-
